@@ -36,7 +36,7 @@ int main(){
 	printf("Enter The Size of the Array:");
 	scanf("%d",&n);
 	int arr[n];
-	printf("Enter %d Elements of the Array:\n");
+	printf("Enter %d Elements of the Array:\n",n);
 	for(int i=0; i<n; i++){
 		scanf("%d",&arr[i]);
 	}
