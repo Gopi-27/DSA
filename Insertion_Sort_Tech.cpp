@@ -3,14 +3,18 @@ void InsertionSort(int arr[],int n){
 	//separating the give array into sorted and unsorted part
 	for(int i=1; i<n; i++){
 		int val=arr[i];
-		int j=i-1;
+		int idx=i-1;
 		//pick the correct index to insert element in the sorted part
-		while(j>=0 && arr[j]>val){
+		for(int j=i-1; j>=0; j--){
 		// shift the element at jth position to (j+1)th position
+			if(arr[j]<val){
+			idx=j+1;
+			break;
+			}
 			arr[j+1]=arr[j];
-			j--;
+			idx=j;
 		}
-		arr[j+1]=val;	
+		arr[idx]=val;	
 	}
 }
 
