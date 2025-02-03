@@ -3,11 +3,16 @@ void swap(int*,int*);
 void QuickSort(int*,int ,int);
 int Partion(int*,int ,int);
 void swap(int *a,int *b){
+	// interger changing the values at a and b
 	int temp=(*a);
 	(*a)=(*b);
 	(*b)=temp;
 }
 int Partion(int arr[],int lb,int ub){
+	// finding the correct place for the arr[lb] as loc
+	// After that we need to Divide the array into two block
+	// one block --> After the current loc+1 to upper
+	// second block--> from the current lower tp loc-1 
 	int start=lb;
 	int end=ub;
 	while(start<end){
