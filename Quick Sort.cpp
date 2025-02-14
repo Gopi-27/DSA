@@ -1,53 +1,63 @@
 #include<stdio.h>
-void swap(int*,int*);
-void QuickSort(int*,int ,int);
-int Partion(int*,int ,int);
-void swap(int *a,int *b){
-	// interger changing the values at a and b
-	int temp=(*a);
-	(*a)=(*b);
-	(*b)=temp;
+
+int Partition(int *A,int key,int start,int end){
+	int s=start;
+	int e=end;
+	while(s<e){
+		// Getting the index of  first larger element than key from start
+		while(A[s]<=key)s++;
+		// Getting the index of first smaller element than key from end
+		while(A[e]>key)e--;
+		
+		if(s<e){
+			// swapping the first larger element from start and first smaller element for end
+			int temp=A[s];
+			A[s]=A[e];
+			A[e]=temp;
+		}
+	}
+	// swapping the key and element at e index
+	int temp=A[e];
+	A[e]=key;
+	A[start]=temp;
+	// returning the index of pivot element
+	return e;
+	
 }
-int Partion(int arr[],int lb,int ub){
-	// finding the correct place for the arr[lb] as loc
-	// After that we need to Divide the array into two block
-	// one block --> After the current loc+1 to upper
-	// second block--> from the current lower tp loc-1 
-	int start=lb;
-	int end=ub;
-	while(start<end){
-	while(arr[start]<=arr[lb]){
-		start++;
-	}
-	while(arr[end]>arr[lb]){
-		end--;
-	}
+
+void QuickSort(int *A,int start,int end){
+	
 	if(start<end){
-		swap(&arr[start],&arr[end]);
+		// taking the first element as pivot element
+		int pivot=A[start];
+		// function which can place the pivot element at correct place and returns it's index 
+		// After Partition all the elements before the pivot element are smallerthan pivot element
+		// and all the elements after the pivot element are greaterthan pivot element 
+		int pidx=Partition(A,pivot,start,end);
+		// Dividing the array into two parts
+		// 1. from start to the before pivot element
+		QuickSort(A,start,pidx-1);
+		// 2. after the pivot element to end
+		QuickSort(A,pidx+1,end);
+		
+		return;
+		
+		
 	}
-}
-	swap(&arr[lb],&arr[end]);
-	return end;
-}
-void QuickSort(int arr[], int lb,int ub){
-	if(lb<ub){
-	int loc=Partion(arr,lb,ub);
-		QuickSort(arr,lb,loc-1);
-		QuickSort(arr,loc+1,ub);
-	}
+	
+	return;
+	
 }
 int main(){
 	int n;
-	printf("Enter The Size of the Array:");
+	printf("Enter the size of the Array:\n");
 	scanf("%d",&n);
 	int arr[n];
 	printf("Enter %d Elements of the Array:\n",n);
 	for(int i=0; i<n; i++){
 		scanf("%d",&arr[i]);
 	}
-	int lb=0;
-	int ub=n-1;
-	QuickSort(arr,lb,ub);
+	QuickSort(arr,0,n-1);
 	for(int i=0; i<n; i++){
 		printf("%d ",arr[i]);
 	}
