@@ -16,11 +16,11 @@ void RadixSort(int *arr,int n){
 	int buc[10][n];
 	int cnt[10]={0};
 	int max=FindMax(arr,n);
-	int dig=(int)log10(max)+1;// getting the number of digits  in the max number
-	for(int i=1; i<=pow(10,dig); i*=10){
+	int exp = 1;
+	while(max){
 		//segregating into the buckets
 		for(int j=0; j<n; j++){
-			int pos=(arr[j]/i)%10;
+			int pos=(arr[j]/exp)%10;
 			// for first iteration unit's place digit
 			// for second iteration tenth place digit
 			// for third iterartion hundered place digit and soo.....n
@@ -36,7 +36,8 @@ void RadixSort(int *arr,int n){
 			}
 			cnt[r]=0;
 		}
-		
+	   	 max /= 10;
+		exp *= 10;
 	}
 }
 int main(){
