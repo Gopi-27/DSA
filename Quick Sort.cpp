@@ -5,7 +5,7 @@ int Partition(int *A,int key,int start,int end){
 	int e=end;
 	while(s<e){
 		// Getting the index of  first larger element than key from start
-		while(A[s]<=key)s++;
+		while(s <= end A[s]<=key)s++;
 		// Getting the index of first smaller element than key from end
 		while(A[e]>key)e--;
 		
