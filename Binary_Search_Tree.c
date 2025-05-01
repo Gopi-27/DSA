@@ -25,6 +25,50 @@ Node* Insert(Node* root ,int val){
     root->right = Insert(root->right,val);
     return root;
 }
+Node* InOrderSucc(Node* root){
+    // finding the root which have in the minimum value
+    // the minimum always exists in the left part of the tree
+    if(root->left == NULL)return root;
+    return InOrderSucc(root->left);
+}
+ 
+Node* Delete(Node* root,int val){
+    // The Node is not found
+    if(root == NULL)return root;
+    // the value at root is more than than required value so, move left
+    else if(root->data > val){
+        root->left = Delete(root->left,val);
+    // the value at root is less than than required value so, move right
+    }else if(root->data < val){
+        root->right = Delete(root->right,val);
+    // reached to the required node 
+    }else{
+        // three Cases
+        // 1.NO children
+        // 2.ONE children
+        // 3.TWO children
+        if(root->left == NULL && root->right == NULL){
+            free(root);
+            return NULL;
+        }else if(root->left == NULL || root->right == NULL){
+            Node* temp;
+            if(root->left == NULL){
+                temp = root->right;
+            }else{
+                temp = root->left;
+            }
+            free(root);
+            return temp;
+            
+        }else{
+            Node* temp = InOrderSucc(root->right);
+            root->data = temp->data;
+            root->right = Delete(temp,temp->data);
+        }
+        
+    }
+    return root;
+}
 void InOrder(Node* root){
     if(root == NULL)return;
     InOrder(root->left);
@@ -38,11 +82,16 @@ int main(){
     int n;
     scanf("%d",&n);
     Node* root = NULL;
+    int val;
     for(int i = 0; i < n; i++){
-        int val;
         scanf("%d",&val);
         root = Insert(root,val);
     }
-  // Checking Wheater tree build correct or not
+    // Checking Wheater tree build correct or not
+    InOrder(root);
+    scanf(" %d",&val);
+    root = Delete(root,val);
+    // Checking Wheater deletion made correct or not
+    printf("\n");
     InOrder(root);
 }
