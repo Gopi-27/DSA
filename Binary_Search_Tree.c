@@ -36,37 +36,37 @@ Node* Delete(Node* root,int val){
     // The Node is not found
     if(root == NULL)return root;
     // the value at root is more than than required value so, move left
-    else if(root->data > val){
+    if(root->data > val){
         root->left = Delete(root->left,val);
+        return root;
+    }
     // the value at root is less than than required value so, move right
-    }else if(root->data < val){
+    if(root->data < val){
         root->right = Delete(root->right,val);
-    // reached to the required node 
-    }else{
+        return root;
+    }
+    // reached to the required node
         // three Cases
         // 1.NO children
         // 2.ONE children
         // 3.TWO children
-        if(root->left == NULL && root->right == NULL){
-            free(root);
-            return NULL;
-        }else if(root->left == NULL || root->right == NULL){
-            Node* temp;
-            if(root->left == NULL){
-                temp = root->right;
-            }else{
-                temp = root->left;
-            }
-            free(root);
-            return temp;
-            
-        }else{
-            Node* temp = InOrderSucc(root->right);
-            root->data = temp->data;
-            root->right = Delete(temp,temp->data);
-        }
-        
+    if(root->left == NULL && root->right == NULL){
+        free(root);
+        return NULL;
     }
+    if(root->left == NULL || root->right == NULL){
+        Node* temp;
+        if(root->left == NULL){
+                temp = root->right;
+        }else{
+             temp = root->left;
+        }
+        free(root);
+        return temp;
+    }
+    Node* temp = InOrderSucc(root->right);
+    root->data = temp->data;
+    temp = Delete(temp,temp->data);
     return root;
 }
 void InOrder(Node* root){
