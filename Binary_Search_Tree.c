@@ -31,6 +31,12 @@ Node* InOrderSucc(Node* root){
     if(root->left == NULL)return root;
     return InOrderSucc(root->left);
 }
+struct Node* Search(struct Node *root, target){
+    if(root == NULL || root->data == target)return root;
+     //go to left
+    if(target < root->data)return Search(root->left,target);
+    return Search(root->right,target);
+}
  
 Node* Delete(Node* root,int val){
     // The Node is not found
